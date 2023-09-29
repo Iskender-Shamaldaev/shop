@@ -61,4 +61,27 @@ userRouter.get('/secret', auth, async (req, res) => {
     });
 });
 
+userRouter.delete('/sessions', async (req, res, next) => {
+    try {
+        const token = req.get('Authorization');
+
+        if (!token) {
+            return res.send({message: 'Success'});
+        }
+
+        const user = await User.findOne({token});
+
+        if (!user) {
+            return res.send({message: 'Success'});
+        }
+
+        await user.generateToken();
+        user.save();
+
+        return res.send({message: 'Success'});
+    } catch (e) {
+        next(e);
+    }
+});
+
 export default userRouter;

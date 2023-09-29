@@ -4,8 +4,8 @@ import { RootState } from '../../app/store';
 import { fetchCategories } from './categoriesThunk';
 
 interface CategoriesState {
-  items: Category[],
-  loading: boolean,
+  items: Category[];
+  loading: boolean;
 }
 
 export const initialState: CategoriesState = {
@@ -22,13 +22,13 @@ const categoriesSlice = createSlice({
       .addCase(fetchCategories.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchCategories.fulfilled, (state, {payload}) => {
+      .addCase(fetchCategories.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.items = payload;
       })
       .addCase(fetchCategories.rejected, (state) => {
         state.loading = false;
-      })
+      });
   },
 });
 

@@ -28,7 +28,7 @@ const ProductForm = () => {
 
   useEffect(() => {
     dispatch(fetchCategories());
-  },[dispatch]);
+  }, [dispatch]);
 
   const submitFormHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,8 +45,8 @@ const ProductForm = () => {
     const name = e.target.name;
     const value = e.target.value;
 
-    setState(prevState => {
-      return {...prevState, [name]: value};
+    setState((prevState) => {
+      return { ...prevState, [name]: value };
     });
   };
 
@@ -63,38 +63,33 @@ const ProductForm = () => {
   };
 
   return !categoriesLoading ? (
-    <form
-      autoComplete="off"
-      onSubmit={submitFormHandler}
-    >
+    <form autoComplete="off" onSubmit={submitFormHandler}>
       <Grid container direction="column" spacing={2}>
-
         <Grid item xs>
           <TextField
             select
-            id="category" label="Category"
+            id="category"
+            label="Category"
             value={state.category}
             onChange={inputChangeHandler}
             name="category"
             required
           >
-            <MenuItem value="" disabled>Please select a category</MenuItem>
-            {categories.map(category => (
-              <MenuItem
-                key={category._id}
-                value={category._id}
-              >
+            <MenuItem value="" disabled>
+              Please select a category
+            </MenuItem>
+            {categories.map((category) => (
+              <MenuItem key={category._id} value={category._id}>
                 {category.title}
               </MenuItem>
             ))}
-
           </TextField>
-
         </Grid>
 
         <Grid item xs>
           <TextField
-            id="title" label="Title"
+            id="title"
+            label="Title"
             value={state.title}
             onChange={inputChangeHandler}
             name="title"
@@ -103,7 +98,8 @@ const ProductForm = () => {
 
         <Grid item xs>
           <TextField
-            id="price" label="Price"
+            id="price"
+            label="Price"
             value={state.price}
             onChange={inputChangeHandler}
             name="price"
@@ -112,8 +108,10 @@ const ProductForm = () => {
 
         <Grid item xs>
           <TextField
-            multiline rows={3}
-            id="description" label="Description"
+            multiline
+            rows={3}
+            id="description"
+            label="Description"
             value={state.description}
             onChange={inputChangeHandler}
             name="description"
@@ -121,11 +119,7 @@ const ProductForm = () => {
         </Grid>
 
         <Grid item xs>
-          <FileInput
-            onChange={filesInputChangeHandler}
-            name="image"
-            label="image"
-          />
+          <FileInput onChange={filesInputChangeHandler} name="image" label="image" />
         </Grid>
 
         <Grid item xs>
@@ -142,7 +136,9 @@ const ProductForm = () => {
         </Grid>
       </Grid>
     </form>
-  ) : <CircularProgress />;
+  ) : (
+    <CircularProgress />
+  );
 };
 
 export default ProductForm;

@@ -14,16 +14,14 @@ const Products = () => {
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    dispatch(fetchProducts())
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item container justifyContent="space-between" alignItems="center">
         <Grid item>
-          <Typography variant="h4">
-            Products
-          </Typography>
+          <Typography variant="h4">Products</Typography>
         </Grid>
 
         <Grid item>
@@ -36,7 +34,7 @@ const Products = () => {
       </Grid>
 
       <Grid container item spacing={2}>
-        {products.map((product) =>(
+        {products.map((product) => (
           <ProductItem
             key={product._id}
             id={product._id}
@@ -45,7 +43,7 @@ const Products = () => {
             image={product.image}
             category={product.category}
           />
-          ))}
+        ))}
       </Grid>
     </Grid>
   );

@@ -20,12 +20,11 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-
     builder.addCase(fetchProducts.pending, (state) => {
-      state.fetchLoading = true
+      state.fetchLoading = true;
     });
 
-    builder.addCase(fetchProducts.fulfilled, (state, {payload: products}) => {
+    builder.addCase(fetchProducts.fulfilled, (state, { payload: products }) => {
       state.fetchLoading = false;
       state.items = products;
     });
@@ -49,4 +48,3 @@ export const productsReducer = productsSlice.reducer;
 export const selectProducts = (state: RootState) => state.products.items;
 export const selectProductsLoading = (state: RootState) => state.products.fetchLoading;
 export const selectProductCreating = (state: RootState) => state.products.createLoading;
-
