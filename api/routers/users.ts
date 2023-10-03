@@ -69,8 +69,10 @@ userRouter.post('/google', async (req, res, next) => {
         }
 
         const email = payload["email"];
-        const googleID = payload["sub"];
+        const id = payload["sub"];
         const displayName = payload["name"];
+
+
 
         if (!email) {
             return res
@@ -78,13 +80,13 @@ userRouter.post('/google', async (req, res, next) => {
               .send({ error: "Not enough user data to continue" });
         }
 
-        let user = await User.findOne({ googleID});
+        let user = await User.findOne({ googleId: id });
 
         if (!user) {
             user = new User({
                 username: email,
                 password: crypto.randomUUID(),
-                googleID,
+                googleId: id,
                 displayName,
             });
         }
@@ -92,7 +94,6 @@ userRouter.post('/google', async (req, res, next) => {
         user.generateToken();
 
         await user.save();
-
         return res.send({ message: "Login with Google successful!", user });
     } catch (e) {
         return next(e);
